@@ -6,28 +6,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.assignment.operations.DeleteFromDB;
-import com.assignment.operations.FetchFromDB;
+import com.assignment.operations.DBOperationImpl;
+import com.assignment.operations.DBOperationInterface;
 
 /**
  * Contains method to delete image
  * Servlet implementation class DisplayTableServlet
  */
-public class DeleteControllerServlet extends HttpServlet {
+public class ActionControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	FetchFromDB fb;
-	DeleteFromDB db;
+	DBOperationInterface db;
+	DBOperationInterface ub;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteControllerServlet() {
+    public ActionControllerServlet() {
         super();
     }
     
     public void init() {
-    	fb = new FetchFromDB();
-    	db = new DeleteFromDB();
+    	db = new DBOperationImpl();
+    	ub = new DBOperationImpl();
     }
 
 	/**
@@ -36,10 +36,11 @@ public class DeleteControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		int imageId = Integer.parseInt(request.getParameter("id"));
 		boolean isDeleted;
 		
-		isDeleted = db.delete(imageId);
+		isDeleted = db.deleteImage(imageId);
 		
 		// Get status of Delete process
 		if (isDeleted) {
@@ -50,5 +51,20 @@ public class DeleteControllerServlet extends HttpServlet {
 		}
 		
 	}	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int imageId = Integer.parseInt(request.getParameter("imageId"));
+		String newName = request.getParameter("newName");
+		boolean isUpdated = ub.editImageInfo(imageId, newName);
+		
+		// Getting Update Status
+		if(isUpdated) {
+			System.out.println("Updation Successful");
+			response.sendRedirect("MainUtility.jsp");
+		} else {
+			System.out.println("Updation Failed");
+		}
+	}
 
 }

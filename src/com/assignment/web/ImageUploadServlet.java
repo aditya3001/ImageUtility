@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.assignment.operations.UploadImage;
+import com.assignment.operations.DBOperationImpl;
 
 /**
  * To upload Image
@@ -18,7 +18,7 @@ import com.assignment.operations.UploadImage;
 
 public class ImageUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UploadImage uploadImage;
+	private DBOperationImpl uploadImage;
        
     
     public ImageUploadServlet() {
@@ -26,7 +26,7 @@ public class ImageUploadServlet extends HttpServlet {
     }
     
     public void init() {
-    	uploadImage = new UploadImage();
+    	uploadImage = new DBOperationImpl();
     }
 
 	/**
@@ -40,7 +40,7 @@ public class ImageUploadServlet extends HttpServlet {
 		String userName = (String) session.getAttribute("userName");
 		String message;
 		
-		boolean uploadResult = uploadImage.upload(part, userName);
+		boolean uploadResult = uploadImage.addImage(part, userName);
 		
 		// Getting Upload Status
 		if (uploadResult) {

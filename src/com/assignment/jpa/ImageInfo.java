@@ -1,6 +1,8 @@
 package com.assignment.jpa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.assignment.hibernateutil.HibernateConnection;
 
 @Entity
 @Table(name = "ImageInfo")
@@ -82,4 +89,25 @@ public class ImageInfo implements Serializable{
 
 	public ImageInfo() {
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<ImageInfo> getImageList(String userName) {
+			
+		Transaction transaction = null;
+		List<ImageInfo> imageInfoList = new ArrayList<>();
+		
+		try (Session session = HibernateConnection.getSessionFactory().openSession()) {
+			
+			transaction = session.beginTransaction();
+	        // get a user object
+	        imageInfoList = session.createQuery("FROM ImageInfo U WHERE U.UserName = :userName").setParameter("userName", userName).getResultList();
+	        transaction.commit();
+		 } catch (Exception e) {
+			 if (transaction != null) {
+	                transaction.rollback();
+	            }
+			 System.out.println("Failed while fetching");
+	     }
+		return imageInfoList;
+	} 
 }

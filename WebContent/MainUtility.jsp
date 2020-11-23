@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.assignment.jpa.ImageInfo"%>
-<%@ page import="com.assignment.operations.FetchFromDB"%>
+<%@ page import="com.assignment.operations.DBOperationImpl"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.Math"%>
 <!DOCTYPE html>
@@ -21,6 +21,11 @@ table.center {
 
 th, td {
 	padding: 10px;
+}
+
+table {
+	align: center;
+	width: 900px;
 }
 </style>
 </head>
@@ -62,10 +67,10 @@ th, td {
 					<th>Actions</th>
 				</tr>
 				<%
-					FetchFromDB fb = new FetchFromDB();
+					DBOperationImpl fb = new DBOperationImpl();
 					String userName = (String) session.getAttribute("userName");
 					List<ImageInfo> imageInfoList = new ArrayList<>();
-					imageInfoList = fb.fetch(userName);
+					imageInfoList = fb.getImages(userName);
 					int Sno = 1;
 					float totalSize = 0;
 					for (ImageInfo img : imageInfoList) {
@@ -82,7 +87,7 @@ th, td {
 					<td>
 						<img src="<%=pic%>" width="200" height="200" alt="not showing">
 					</td>
-					<td><a href="delete?id=<%=img.getImageId()%>">
+					<td><a href="action?id=<%=img.getImageId()%>">
 							<button
 								type="button" class="delete">Delete
 							</button>

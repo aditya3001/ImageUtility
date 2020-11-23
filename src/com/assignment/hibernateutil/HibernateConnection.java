@@ -11,7 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import com.assignment.jpa.ImageInfo;
 import com.assignment.jpa.User;
 
-public class HibernateUtil {
+public class HibernateConnection {
 	private static SessionFactory sessionFactory;
 	
 	public static SessionFactory getSessionFactory() {
@@ -25,7 +25,7 @@ public class HibernateUtil {
 	            settings.put(Environment.URL, "jdbc:mysql://localhost:3306/ImageUtility?useSSL=false");
 	            settings.put(Environment.USER, "root");
 	            settings.put(Environment.PASS, "root");
-	            settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+	            settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
 	
 	            settings.put(Environment.SHOW_SQL, "true");
 	

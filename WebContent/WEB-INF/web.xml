@@ -7,7 +7,7 @@
   
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>com.assignment.web.LoginServlet</servlet-class>
+    <servlet-class>com.assignment.web.LoginControllerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -29,21 +29,12 @@
     <url-pattern>/MainUtility</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>DeleteControllerServlet</servlet-name>
-    <servlet-class>com.assignment.web.DeleteControllerServlet</servlet-class>
+    <servlet-name>ActionControllerServlet</servlet-name>
+    <servlet-class>com.assignment.web.ActionControllerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>DeleteControllerServlet</servlet-name>
-    <url-pattern>/delete</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>EditControllerServlet</servlet-name>
-    <servlet-class>com.assignment.web.EditControllerServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>EditControllerServlet</servlet-name>
-    <url-pattern>/edit</url-pattern>
+    <servlet-name>ActionControllerServlet</servlet-name>
+    <url-pattern>/action</url-pattern>
   </servlet-mapping>
   
 </web-app>
